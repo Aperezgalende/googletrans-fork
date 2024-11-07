@@ -218,7 +218,19 @@ class Translator:
                 break
 
         data = json.loads(resp)
-        parsed = json.loads(data[0][2])
+        try:
+            parsed = json.loads(data[0][2])
+        except TypeError:
+            return Translated(
+                src=src,
+                dest=dest,
+                origin=origin,
+                text=origin,
+                response=response,
+                pronunciation=None,
+                parts=None,
+                extra_data=None,
+            )
         # not sure
         should_spacing = parsed[1][0][0][3]
         try:
